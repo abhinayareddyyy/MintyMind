@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MintyMind - Algorithmic Planner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="custom-cursor" id="customCursor"></div>
+
+    <div class="floating-card-top-right">
+        <div class="card-dots">
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+            <span class="card-dot"></span>
+        </div>
+        <p>Stay focused, stay productive</p>
+    </div>
+
+    <div class="app-container">
+        <div class="header">
+            <button class="mode-toggle" id="modeToggle">Moon</button>
+            <h1>MintyMind</h1>
+            <p>A web application for Task Planning using DAA</p>
+        </div>
+
+        <section class="section active" id="heroSection">
+            <div class="window-card">
+                <div class="window-top">
+                    <div class="window-dot dot-red"></div>
+                    <div class="window-dot dot-yellow"></div>
+                    <div class="window-dot dot-green"></div>
+                    <div class="window-title">Welcome</div>
+                </div>
+                <div class="window-content">
+                    <h2 class="section-title">What is Our Project About?</h2>
+                    <ul class="bullet-list">
+                        <li>MintyMind is an aesthetic task planning application that combines beautiful UI with powerful algorithms to optimize your daily productivity</li>
+                        <li>It uses advanced sorting, graph traversal, and greedy scheduling algorithms to create intelligent task schedules</li>
+                        <li>The platform is designed with a soft, minimal pastel aesthetic and focuses on clear visual hierarchy and ease of use</li>
+                        <li>Users can manage tasks, track progress, maintain streaks, and visualize algorithm performance in real-time</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="aboutSection">
+            <div class="window-card">
+                <div class="window-top">
+                    <div class="window-dot dot-red"></div>
+                    <div class="window-dot dot-yellow"></div>
+                    <div class="window-dot dot-green"></div>
+                    <div class="window-title">Features</div>
+                </div>
+                <div class="window-content">
+                    <h2 class="section-title">Smart Features</h2>
+                    <ul class="bullet-list">
+                        <li><strong>Merge Sort & Quick Sort:</strong> Compare and visualize different sorting approaches for optimal task ordering</li>
+                        <li><strong>Graph Analysis:</strong> Detect task dependencies, resolve cycles with DFS, and generate valid execution orders with BFS</li>
+                        <li><strong>Greedy Scheduling:</strong> Automatically optimize your daily schedule by prioritizing high-value tasks within available time</li>
+                        <li><strong>Streak Tracking:</strong> Maintain motivation with a real-time completion streak counter that rewards consistency</li>
+                        <li><strong>Persistent Storage:</strong> All data is saved locally using browser storage for privacy and offline access</li>
+                    </ul>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">Today's Tasks</div>
+                            <div class="stat-value" id="taskCount">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Completed</div>
+                            <div class="stat-value" id="completedCount">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Current Streak</div>
+                            <div class="stat-value" id="streakCount">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="taskInputSection">
+            <div class="window-card">
+                <div class="window-top">
+                    <div class="window-dot dot-red"></div>
+                    <div class="window-dot dot-yellow"></div>
+                    <div class="window-dot dot-green"></div>
+                    <div class="window-title">Add Task</div>
+                </div>
+                <div class="window-content">
+                    <h2 class="section-title">Create New Task</h2>
+
+                    <form id="taskForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="taskName">Task Name</label>
+                                <input type="text" id="taskName" placeholder="What needs to be done?" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="timeRequired">Time Required (hours)</label>
+                                <input type="number" id="timeRequired" min="0.5" max="24" step="0.5" placeholder="2.5" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="deadline">Deadline</label>
+                                <input type="date" id="deadline" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="priority">Priority Level</label>
+                                <input type="number" id="priority" min="1" max="5" value="3" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" style="width: 100%; padding: 16px;">Add Task</button>
+                    </form>
+
+                    <div id="taskFormAlert" style="display: none; margin-top: 20px;"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="scheduleSection">
+            <div class="window-card">
+                <div class="window-top">
+                    <div class="window-dot dot-red"></div>
+                    <div class="window-dot dot-yellow"></div>
+                    <div class="window-dot dot-green"></div>
+                    <div class="window-title">Schedule</div>
+                </div>
+                <div class="window-content">
+                    <h2 class="section-title">Today's Schedule</h2>
+                    <p class="section-text">Your optimized daily schedule generated using greedy algorithm optimization.</p>
+                    <div id="scheduleContainer"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="todoSection">
+            <div class="window-card">
+                <div class="window-top">
+                    <div class="window-dot dot-red"></div>
+                    <div class="window-dot dot-yellow"></div>
+                    <div class="window-dot dot-green"></div>
+                    <div class="window-title">To-Do List</div>
+                </div>
+                <div class="window-content">
+                    <h2 class="section-title">Today's Tasks</h2>
+
+                    <div class="progress-container">
+                        <p style="font-weight: 700; margin-bottom: 12px;">Progress</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.7;" id="progressText">0% complete</p>
+                    </div>
+
+                    <div id="todayTasksList"></div>
+
+                    <div id="completionMessage" class="alert success" style="display: none; margin-top: 20px;">
+                        All tasks completed! Your streak is growing.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="algoSection">
+            <div class="window-card">
+                <div class="window-top">
+                    <div class="window-dot dot-red"></div>
+                    <div class="window-dot dot-yellow"></div>
+                    <div class="window-dot dot-green"></div>
+                    <div class="window-title">Analytics</div>
+                </div>
+                <div class="window-content">
+                    <h2 class="section-title">Algorithm Insights</h2>
+
+                    <h3 style="margin: 30px 0 15px 0; font-size: 1.3em;">Task Sorting</h3>
+                    <button id="sortBtn" style="margin-bottom: 20px;">Sort Tasks</button>
+                    <div id="sortingResults"></div>
+
+                    <h3 style="margin: 40px 0 15px 0; font-size: 1.3em;">Schedule Optimization</h3>
+                    <div id="scheduleOptimization"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="bottom-nav">
+        <button class="nav-btn active" onclick="switchSection(0)">
+            <span class="nav-icon">H</span>
+            <span>Home</span>
+        </button>
+        <button class="nav-btn" onclick="switchSection(1)">
+            <span class="nav-icon">F</span>
+            <span>Features</span>
+        </button>
+        <button class="nav-btn" onclick="switchSection(2)">
+            <span class="nav-icon">+</span>
+            <span>Add</span>
+        </button>
+        <button class="nav-btn" onclick="switchSection(3)">
+            <span class="nav-icon">S</span>
+            <span>Schedule</span>
+        </button>
+        <button class="nav-btn" onclick="switchSection(4)">
+            <span class="nav-icon">T</span>
+            <span>To-Do</span>
+        </button>
+        <button class="nav-btn" onclick="switchSection(5)">
+            <span class="nav-icon">A</span>
+            <span>Analytics</span>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
